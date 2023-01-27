@@ -12,7 +12,7 @@
 - Verify Cluster, Node Groups, EC2 Instances, IAM Policies and Node Groups
 
 
-## Step-01: Create EKS Cluster using eksctl
+## Step-01: Create EKS Cluster using eksctl, Generate a public key and save in your secrets
 - It will take 15 to 20 minutes to create the Cluster Control Plane 
 ```
 # Create Cluster
@@ -22,7 +22,13 @@ eksctl create cluster --name=eksdemo1 \
                       --without-nodegroup 
 
 # Get List of clusters
-eksctl get cluster                  
+eksctl get cluster     
+
+#Create public key
+ssh-keygen
+
+#Save public key in secrets
+
 ```
 
 
@@ -71,10 +77,22 @@ eksctl create nodegroup --cluster=eksdemo1 \
                         --full-ecr-access \
                         --appmesh-access \
                         --alb-ingress-access 
+#eksctl create nodegroup --help
 #--ssh-access = control SSH access for nodes. Uses ~/.ssh/id_rsa.pub as default key path if enabled
-#--node-ami string                'auto-ssm', 'auto' or an AMI ID (advanced use)
-#--node-ami-family string         'AmazonLinux2' for the Amazon EKS optimized AMI, or use 'Ubuntu2004' or 'Ubuntu1804' for the official Canonical EKS AMIs 
+#--node-ami string     =           'auto-ssm', 'auto' or an AMI ID (advanced use)
+#--node-ami-family string     =    'AmazonLinux2' for the Amazon EKS optimized AMI, or use 'Ubuntu2004' or 'Ubuntu1804' for the official Canonical EKS AMIs 
 (default "AmazonLinux2
+# -P, --node-private-networking    =    whether to make nodegroup networking private
+# --node-zones strings             (inherited from the cluster if unspecified)
+#--node-security-groups strings   attach additional security groups to nodes
+#--managed                        Create EKS-managed nodegroup (default true)
+#addons
+--asg-access               enable IAM policy for cluster-autoscaler
+      --external-dns-access      enable IAM policy for external-dns
+      --full-ecr-access          enable full access to ECR
+      --appmesh-access           enable full access to AppMesh
+      --appmesh-preview-access   enable full access to AppMesh Preview
+      --alb-ingress-access       enable full access for alb-ingress-controller
 ```
 
 ## Step-05: Verify Cluster & Nodes
