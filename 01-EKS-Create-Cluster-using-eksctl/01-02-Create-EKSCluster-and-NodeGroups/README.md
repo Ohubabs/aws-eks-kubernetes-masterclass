@@ -71,6 +71,10 @@ eksctl create nodegroup --cluster=eksdemo1 \
                         --full-ecr-access \
                         --appmesh-access \
                         --alb-ingress-access 
+#--ssh-access = control SSH access for nodes. Uses ~/.ssh/id_rsa.pub as default key path if enabled
+#--node-ami string                'auto-ssm', 'auto' or an AMI ID (advanced use)
+#--node-ami-family string         'AmazonLinux2' for the Amazon EKS optimized AMI, or use 'Ubuntu2004' or 'Ubuntu1804' for the official Canonical EKS AMIs 
+(default "AmazonLinux2
 ```
 
 ## Step-05: Verify Cluster & Nodes
