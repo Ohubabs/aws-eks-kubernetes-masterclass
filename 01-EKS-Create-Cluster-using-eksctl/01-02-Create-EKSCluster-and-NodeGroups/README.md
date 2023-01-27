@@ -15,11 +15,12 @@
 ## Step-01: Create EKS Cluster using eksctl, Generate a public key and save in your secrets
 - It will take 15 to 20 minutes to create the Cluster Control Plane 
 ```
-# Create Cluster
+# Create Cluster Imperative style
 eksctl create cluster --name=eksdemo1 \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
                       --without-nodegroup 
+#Create cluster declarative style with a yaml file: https://eksctl.io/usage/creating-and-managing-clusters/#using-config-files
 
 # Get List of clusters
 eksctl get cluster     
@@ -28,6 +29,7 @@ eksctl get cluster
 ssh-keygen
 
 #Save public key in secrets
+#how to save in secrets: https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-config-file/
 
 ```
 
