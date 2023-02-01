@@ -25,15 +25,6 @@ eksctl create cluster --name=eksdemo1 \
 # Get List of clusters
 eksctl get cluster     
 
-#Create public key
-ssh-keygen
-
-#Save public key in secrets
-#how to save in secrets: https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-config-file/
-
-```
-
-
 ## Step-02: Create & Associate IAM OIDC Provider for our EKS Cluster
 - To enable and use AWS IAM roles for Kubernetes service accounts on our EKS cluster, we must create &  associate OIDC identity provider.
 - To do so using `eksctl` we can use the  below command. 
@@ -56,8 +47,10 @@ eksctl utils associate-iam-oidc-provider \
 
 ## Step-03: Create EC2 Keypair
 - Create a new EC2 Keypair with name as `kube-demo`
-- This keypair we will use it when creating the EKS NodeGroup.
-- This will help us to login to the EKS Worker Nodes using Terminal.
+#For Amazon linux server which is the default for EKS nodes, you will have to choose between two key types: RSA or ED25519, choose ED25519
+#Once key pair has been created, download the file to your computer.
+#After downloading the private key to your server, create a file using "sudo vi/vim kube-demo.pem", copy and paste here the private key you downloaded and save the file. This will ensure the nodegroup you want to create can find your private key for logging in.
+
 
 ## Step-04: Create Node Group with additional Add-Ons in Public Subnets
 - These add-ons will create the respective IAM policies for us automatically within our Node Group role.
